@@ -1,0 +1,45 @@
+.row[ng-app="AngulaRails" ng-controller="TacoOrderController"]
+  .col-md-6
+    h3
+      | Add Taco to Order
+    form[ng-submit="addTaco()"]
+      .form-group
+        label[for="name"]
+          | Name your creation
+        input.form-control[type="text" placeholder="Super Tasy" ng-model="taco.name" ]
+
+      .form-group
+        label[for="filling"]
+          | Select your filling
+        select.form-control[ng-model="taco.filling" ng-options="f for f in fillings" ]
+          option[value=""] Pick a filling
+
+      .form-group
+        label Extras
+        .checkbox[ng-repeat="extra in extras" ]
+          label
+            input[type="checkbox" ng-model="extra.checked" ]
+              | {{ extra.name }}
+
+      .form-group
+        label
+          | Cheese
+          .radio[ng-repeat="cheese in cheeses" ]
+            label
+              input[type="radio" value="{{ cheese }}" ng-model="taco.cheese" ]
+                | {{ cheese }}
+
+      button.btn.btn-primary[]
+        |  Submit
+  .col-md-6
+    h3
+      | Your Order
+    table.table
+      tbody
+        tr[ng-repeat="taco in tacos"]
+          td | {{taco.name}}
+          td | {{taco.filling}}
+          td
+            span[ng-repeat="extra in taco.extras"]
+              | {{ extra }}
+          td | {{ taco.cheese }}
